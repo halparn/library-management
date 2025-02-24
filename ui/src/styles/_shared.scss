@@ -1,0 +1,85 @@
+// Colors
+$colors: (
+  'user': #2185d0,  // blue
+  'book': #21ba45,  // green
+  'borrowed': #f2711c,  // orange
+  'text': #1a1a1a,
+  'border': rgba(0,0,0,0.05)
+);
+
+// Breakpoints
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px
+);
+
+// Common Mixins
+@mixin text-ellipsis {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+@mixin card-hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+}
+
+@mixin card-base {
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  height: 100% !important;
+  text-align: center !important;
+  background: linear-gradient(to bottom right, #ffffff, #f8f9fa) !important;
+}
+
+// Layout Mixins
+@mixin grid-layout {
+  margin: 0.5rem -0.5rem !important;
+  
+  > .column {
+    padding: 0.5rem !important;
+  }
+}
+
+@mixin card-content {
+  padding: 1rem !important;
+  
+  &.extra {
+    border-top: 1px solid map-get($colors, 'border') !important;
+    font-weight: 500 !important;
+  }
+}
+
+// Component Mixins
+@mixin item-layout($type) {
+  &-column {
+    margin-bottom: 1rem !important;
+  }
+
+  &-card {
+    @include card-base;
+    
+    .content {
+      @include card-content;
+    }
+  }
+
+  &-icon {
+    color: map-get($colors, $type) !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  &-title, &-name {
+    font-size: 1.1em !important;
+    margin: 0.25rem 0 !important;
+    color: map-get($colors, 'text') !important;
+    @include text-ellipsis;
+  }
+
+  &-status {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9em !important;
+  }
+} 

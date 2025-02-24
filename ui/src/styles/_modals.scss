@@ -1,0 +1,38 @@
+@import './shared';
+
+.ui.modal {
+  border-radius: 12px !important;
+  overflow: visible !important;
+
+  .header {
+    background: #f8f9fa !important;
+    border-bottom: 1px solid map-get($colors, 'border') !important;
+  }
+
+  .content {
+    padding: 2rem !important;
+    
+    .rating {
+      margin: 1rem 0;
+      
+      .icon {
+        color: #b4b1a8 !important;
+        
+        &.active:before,
+        &.selected:before {
+          color: #fbbd08 !important;
+        }
+      }
+    }
+
+    .ui.dropdown {
+      width: 100%;
+    }
+  }
+
+  .actions {
+    background: #f8f9fa !important;
+    border-top: 1px solid map-get($colors, 'border') !important;
+    padding: 1rem !important;
+  }
+} 

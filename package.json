@@ -1,0 +1,16 @@
+{
+  "name": "library-management",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd ui && npm install && cd ../api && npm install",
+    "start": "npm run dev",
+    "start:frontend": "cd ui && npm start",
+    "start:backend": "cd api && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \"npm run start:backend\" \"npm run start:frontend\"",
+    "build": "cd ui && npm run build && cd ../api && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1"
+  }
+} 
