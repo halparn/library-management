@@ -7,15 +7,17 @@ import ErrorMessage from '../ErrorMessage';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { User } from '../../types';
 import { useScrollTop } from '../../hooks/useScrollTop';
+import { useDebounce } from '../../hooks/useDebounce';
 
 const UserList: React.FC = () => {
   useScrollTop();
-  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const search = useDebounce(searchInput);
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState<User[]>([]);
   
   const { data, isLoading, error } = useGetUsersQuery({ 
-    search: search.trim().length >= 2 ? search : undefined,
+    ...(search.trim() && { search: search.trim() }),
     page, 
     limit: 12 
   });
@@ -62,8 +64,8 @@ const UserList: React.FC = () => {
           <Input 
             icon="search" 
             placeholder="Search members by name" 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
 

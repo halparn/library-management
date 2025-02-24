@@ -96,9 +96,7 @@ export const bookValidators = {
   queryParams: [
     query('search')
       .optional()
-      .trim()
-      .isLength({ min: 2 })
-      .withMessage('Search term must be at least 2 characters'),
+      .trim(),
     
     query('available')
       .optional()

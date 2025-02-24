@@ -5,15 +5,17 @@ import { useGetBooksQuery } from '../../services/api';
 import './BookList.scss';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { Book } from '../../types';
+import { useDebounce } from '../../hooks/useDebounce';
 
 const BookList: React.FC = () => {
-  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const search = useDebounce(searchInput);
   const [showAvailable, setShowAvailable] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [books, setBooks] = useState<Book[]>([]);
   
   const { data, isLoading, error } = useGetBooksQuery({ 
-    search: search.trim().length >= 2 ? search : undefined,
+    ...(search.trim() && { search: search.trim() }),
     available: showAvailable,
     page,
     limit: 12
@@ -61,8 +63,8 @@ const BookList: React.FC = () => {
           <Input 
             icon="search" 
             placeholder="Search book by name or author" 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <Checkbox
             label="Show available only"
